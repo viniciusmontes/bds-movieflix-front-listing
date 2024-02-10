@@ -1,0 +1,20 @@
+.login-card {
+  padding: 60px 20px 100px;
+}
+.login-card h1 {
+  color: #fff;
+  font-size: 36px;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: -0.54px;
+  margin-bottom: 20px;
+}
+
+.login-card button {
+  margin-top: 65px;
+}
+@media (min-width: 1200px) {
+  .login-card {
+    padding: 75px 50px 130px;
+  }
+}

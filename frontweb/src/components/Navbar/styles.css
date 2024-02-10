@@ -1,0 +1,17 @@
+.nav-main {
+    padding: 20px;
+    min-height: 68px;
+}
+.nav-login-logout {
+    display: flex;
+    justify-content: center;
+    width: 100px;
+    height: 35px;
+    padding: 5px;
+
+    border: 1px solid #000;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+    
+}

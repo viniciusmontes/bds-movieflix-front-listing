@@ -1,0 +1,22 @@
+.movie-catalog-container {
+    padding: 12px;
+    color: #fff;
+}
+.movie-catalog-content {
+    display: flex;
+    flex-direction: column;
+}
+.movie-catalog-container h1 {
+    font-size: 20px;
+    margin-bottom: 50px;
+}
+
+@media(min-width:768px) {
+    .movie-catalog-container {
+        padding: 40px;
+    }
+.movie-catalog-content h1 {
+    font-size: 48px;
+    margin-bottom: 40px;
+}
+}

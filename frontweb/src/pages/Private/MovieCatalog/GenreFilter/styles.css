@@ -1,0 +1,8 @@
+.genre-filter-container {
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    background-color: #6C6C6C;
+    border-radius: 5px;
+    height: 60px;
+}
