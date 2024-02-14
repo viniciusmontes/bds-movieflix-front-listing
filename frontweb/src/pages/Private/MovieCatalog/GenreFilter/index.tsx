@@ -1,33 +1,66 @@
 import { Genre } from 'types/genre';
 import { useEffect, useState } from 'react';
 import { requestBackend } from 'util/requests';
+import { Controller, useForm } from 'react-hook-form';
+import Select from 'react-select';
 
 import './styles.css';
 
+export type GenreFilterData = {
+  genre: Genre | null;
+};
 
+type Props = {
+  onSubmitFilter: (data: GenreFilterData) => void;
+};
 
-const GenreFilter = () => {
+const GenreFilter = ({ onSubmitFilter }: Props) => {
 
-    const [genres, setGenre] = useState<Genre[]>([]);
+  const { handleSubmit, setValue, getValues, control } =
+    useForm<GenreFilterData>();
 
+  const [selectGenre, setSelectGenre] = useState<Genre[]>([]);
+
+  const onSubmit = (formData: GenreFilterData) => {
+    onSubmitFilter(formData);
+  };
+
+  const handleChangeGenre = (value: Genre) => {
+    setValue('genre', value);
+    const obj: GenreFilterData = {
+      genre: getValues('genre'),
+    };
+    onSubmitFilter(obj);
+  };
 
   useEffect(() => {
-    requestBackend({ url: '/genres', withCredentials: true }).then(
-      (response) => {
-        setGenre(response.data);
-      }
-    );
+    requestBackend({ url: '/genres' }).then((response) => {
+      setSelectGenre(response.data.content);
+    });
   }, []);
 
   return (
     <div className="genre-filter-container">
-      <select name="genre" id="genre">
-        {genres.map((genre) => (
-          <option key={genre.id} value={genre.id}>
-            {genre.name}
-          </option>
-        ))}
-      </select>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="genre-filter-select">
+          <Controller
+            name="genre"
+            control={control}
+            render={({ field }) => (
+              <Select
+                {...field}
+                options={selectGenre}
+                isClearable
+                placeholder="Genero"
+                classNamePrefix="genre-filter-select"
+                onChange={(value) => handleChangeGenre(value as Genre)}
+                getOptionLabel={(genre: Genre) => genre.name}
+                getOptionValue={(genre: Genre) => String(genre.id)}
+              />
+            )}
+          />
+        </div>
+      </form>
     </div>
   );
 };
