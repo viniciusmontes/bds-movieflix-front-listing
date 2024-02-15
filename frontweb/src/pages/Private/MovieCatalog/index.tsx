@@ -59,8 +59,13 @@ const MovieCatalog = () => {
 
         <div className="row movie-catalog-content">
           {page?.content.map((movies) => (
-            <div key={movies.id} className="col-sm-6 col-lg-6 movies-container">
-              <MovieCard movie={movies} />
+            <div
+              key={movies.id}
+              className="col-sm-6 col-lg-6 col-xl-3 movies-container"
+            >
+              <Link to={`/movies/${movies.id}`}>
+                <MovieCard movie={movies} />
+              </Link>
             </div>
           ))}
 
@@ -70,11 +75,6 @@ const MovieCatalog = () => {
             onChange={handlePageChange}
             forcePage={page?.number}
           />
-
-          <Link to="/movies/1">
-            Acessar /movies/1<br></br>
-          </Link>
-          <Link to="/movies/2">Acessar /movies/2</Link>
         </div>
       </div>
     </>

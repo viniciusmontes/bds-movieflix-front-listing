@@ -8,6 +8,7 @@ import { Review } from 'util/review';
 
 import './styles.css';
 import { hasAnyRoles } from 'util/auth';
+import { Movie } from 'types/movie';
 
 type urlParams = {
   movieId: string;
@@ -16,7 +17,17 @@ type urlParams = {
 const MovieDetails = () => {
   const { movieId } = useParams<urlParams>();
 
+  const [movie, setMovie] = useState<Movie>();
+
   const [reviews, setReviews] = useState<Review[]>([]);
+
+  useEffect(() => {
+    requestBackend({ url: `/movies/${movieId}`, withCredentials: true }).then(
+      (response) => {
+        setMovie(response.data);
+      }
+    );
+  }, [movieId]);
 
   useEffect(() => {
     const config: AxiosRequestConfig = {
@@ -36,8 +47,20 @@ const MovieDetails = () => {
   };
 
   return (
-    <div className="container">
-      <h1>Tela de detalhes do filme id: {movieId}</h1>
+    <div className="container movie-details-container">
+      <div className="base-card movie-card-details-container">
+        <div className="movie-card-details-image-container">
+          <img src={movie?.imgUrl} alt={movie?.title} />
+        </div>
+        <div className="movie-card-details-content-container">
+          <h1>{movie?.title}</h1>
+          <span>{movie?.year}</span>
+          <p>{movie?.subTitle}</p>
+          <div className="movie-card-details-synopsis">
+            <p>{movie?.synopsis}</p>
+          </div>
+        </div>
+      </div>
 
       {hasAnyRoles(['ROLE_MEMBER']) && (
         <ReviewForm movieId={movieId} onInsertReview={handleInsertReview} />
