@@ -15,11 +15,11 @@ type Props = {
 };
 
 const GenreFilter = ({ onSubmitFilter }: Props) => {
+  
+  const [selectGenre, setSelectGenre] = useState<Genre[]>([]);
 
   const { handleSubmit, setValue, getValues, control } =
     useForm<GenreFilterData>();
-
-  const [selectGenre, setSelectGenre] = useState<Genre[]>([]);
 
   const onSubmit = (formData: GenreFilterData) => {
     onSubmitFilter(formData);
@@ -34,9 +34,11 @@ const GenreFilter = ({ onSubmitFilter }: Props) => {
   };
 
   useEffect(() => {
-    requestBackend({ url: '/genres' }).then((response) => {
-      setSelectGenre(response.data.content);
-    });
+    requestBackend({ url: '/genres', withCredentials: true }).then(
+      (response) => {
+        setSelectGenre(response.data);
+      }
+    );
   }, []);
 
   return (
@@ -50,9 +52,7 @@ const GenreFilter = ({ onSubmitFilter }: Props) => {
               <Select
                 {...field}
                 options={selectGenre}
-                isClearable
                 placeholder="Genero"
-                classNamePrefix="genre-filter-select"
                 onChange={(value) => handleChangeGenre(value as Genre)}
                 getOptionLabel={(genre: Genre) => genre.name}
                 getOptionValue={(genre: Genre) => String(genre.id)}

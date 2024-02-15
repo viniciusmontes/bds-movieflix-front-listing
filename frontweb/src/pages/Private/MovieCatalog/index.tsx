@@ -2,7 +2,6 @@ import './styles.css';
 import { Link } from 'react-router-dom';
 import GenreFilter, { GenreFilterData } from './GenreFilter';
 import { useCallback, useEffect, useState } from 'react';
-import { Genre } from 'types/genre';
 import { requestBackend } from 'util/requests';
 import { Movie } from 'types/movie';
 import MovieCard from './MovieCard';
@@ -12,15 +11,26 @@ import Pagination from 'components/Pagination';
 
 type ControlComponents = {
   activePage: number;
+  genreFilterData: GenreFilterData;
 };
 
 const MovieCatalog = () => {
-  
   const [page, setPage] = useState<SpringPage<Movie>>();
 
   const [controlComponents, setControlComponents] = useState<ControlComponents>(
-    { activePage: 0}
+    { activePage: 0, genreFilterData: { genre: null } }
   );
+
+  const handlePageChange = (pageNumber: number) => {
+    setControlComponents({
+      activePage: pageNumber,
+      genreFilterData: controlComponents.genreFilterData,
+    });
+  };
+
+  const handleSubmitFilter = (data: GenreFilterData) => {
+    setControlComponents({ activePage: 0, genreFilterData: data });
+  };
 
   const getMovies = useCallback(() => {
     const config: AxiosRequestConfig = {
@@ -29,12 +39,12 @@ const MovieCatalog = () => {
       withCredentials: true,
       params: {
         page: controlComponents.activePage,
-        size: 3,
+        size: 4,
+        genreId: controlComponents.genreFilterData.genre?.id,
       },
     };
     requestBackend(config).then((response) => {
       setPage(response.data);
-      console.log(page);
     });
   }, [controlComponents]);
 
@@ -42,23 +52,13 @@ const MovieCatalog = () => {
     getMovies();
   }, [getMovies]);
 
-  const handlePageChange = (pageNumber: number) => {
-    setControlComponents({
-      activePage: pageNumber
-    });
-  };
-
-  const handleSubmitFilter = (data: GenreFilterData) => {
-    setControlComponents({ activePage: 0});
-  };
-
   return (
     <>
       <div className="movie-catalog-container">
         <div className="movie-catalog-content">
           <h1>Tela de listagem de filmes</h1>
 
-          
+          <GenreFilter onSubmitFilter={handleSubmitFilter} />
 
           {page?.content.map((movies) => (
             <div key={movies.id} className="movies-container">
