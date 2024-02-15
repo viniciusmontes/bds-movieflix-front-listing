@@ -5,10 +5,12 @@ import { AxiosRequestConfig } from 'axios';
 import { requestBackend } from 'util/requests';
 import { useEffect, useState } from 'react';
 import { Review } from 'util/review';
-
-import './styles.css';
 import { hasAnyRoles } from 'util/auth';
 import { Movie } from 'types/movie';
+
+import './styles.css';
+
+
 
 type urlParams = {
   movieId: string;
