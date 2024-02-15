@@ -4,7 +4,10 @@
 }
 .movie-catalog-content {
     display: flex;
-    flex-direction: column;
+    
+}
+.movies-container {
+    margin-bottom: 20px;
 }
 .movie-catalog-container h1 {
     font-size: 20px;

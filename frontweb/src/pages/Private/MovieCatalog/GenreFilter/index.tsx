@@ -53,6 +53,8 @@ const GenreFilter = ({ onSubmitFilter }: Props) => {
                 {...field}
                 options={selectGenre}
                 placeholder="Genero"
+                isClearable
+                classNamePrefix='genre-filter-select'
                 onChange={(value) => handleChangeGenre(value as Genre)}
                 getOptionLabel={(genre: Genre) => genre.name}
                 getOptionValue={(genre: Genre) => String(genre.id)}

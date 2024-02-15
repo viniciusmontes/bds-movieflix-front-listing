@@ -54,14 +54,12 @@ const MovieCatalog = () => {
 
   return (
     <>
-      <div className="movie-catalog-container">
-        <div className="movie-catalog-content">
-          <h1>Tela de listagem de filmes</h1>
+      <div className="container my-4 movie-catalog-container">
+        <GenreFilter onSubmitFilter={handleSubmitFilter} />
 
-          <GenreFilter onSubmitFilter={handleSubmitFilter} />
-
+        <div className="row movie-catalog-content">
           {page?.content.map((movies) => (
-            <div key={movies.id} className="movies-container">
+            <div key={movies.id} className="col-sm-6 col-lg-6 movies-container">
               <MovieCard movie={movies} />
             </div>
           ))}

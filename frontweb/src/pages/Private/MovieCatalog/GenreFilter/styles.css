@@ -1,8 +1,35 @@
 .genre-filter-container {
-    padding: 10px 20px;
-    display: flex;
-    justify-content: center;
-    background-color: #6C6C6C;
-    border-radius: 5px;
-    height: 60px;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  background-color: #6c6c6c;
+  border-radius: 5px;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.genre-filter-select__control {
+  width: 260px;
+  height: 50px;
+  color: #fff !important;
+  background-color: #6c6c6c !important;
+}
+
+.genre-filter-select__menu {
+  color: #fff !important;
+  background-color: #6c6c6c !important;
+}
+
+.genre-filter-select__placeholder {
+  color: #fff !important;
+}
+
+.genre-filter-select__indicator-separator {
+  display: none;
+}
+
+@media(min-width: 576px) {
+  .genre-filter-container {
+    justify-content: flex-start;
+  }
 }

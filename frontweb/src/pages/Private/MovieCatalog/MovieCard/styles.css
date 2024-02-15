@@ -1,3 +1,31 @@
-.movie-card-container img {
-    width: 300px;
+.movie-card-container {
+  background-color: #6c6c6c;
+  border-radius: 4px;
+  padding: 40px 0 40px 0;
+  height: 100%;
 }
+
+.movie-card-image-container {
+  margin-bottom: 20px;
+}
+
+.movie-card-container img {
+  width: 100%;
+}
+.movie-card-content-container {
+  padding-left: 10px;
+}
+
+.movie-card-content-container h1 {
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 0;
+}
+.movie-card-content-container span {
+  font-weight: 700;
+  color: #ffc700;
+}
+.movie-card-content-container p {
+  font-weight: 400;
+}
+
